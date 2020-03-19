@@ -1,5 +1,4 @@
 import * as Types from './lib/types';
+import * as Array from './lib/array';
 
-export namespace Structures {}
-
-export { Types };
+export { Types, Array };
