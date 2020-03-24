@@ -1,7 +1,8 @@
 import { StrictMap } from './types';
+import { isDefined } from './verifiers';
 
-export function clone<T>(arg: T): T {
-  return JSON.parse(JSON.stringify(arg));
+export function clone<T extends any>(arg: T): T {
+  return isDefined(arg.clone, 'function') ? arg.clone() : JSON.parse(JSON.stringify(arg));
 }
 
 export function filterStringify(obj: any, keys: string[]) {
@@ -20,4 +21,21 @@ export function pick<K, T extends K>(K: new () => K, obj: T): K {
 
 export function initStrict<K extends string, V>(a: readonly K[], i: V): StrictMap<K, V> {
   return a.reduce((p: any, c) => ((p[c] = i), p), {}) as StrictMap<K, V>;
+}
+
+export function deepEqual(o1: any, o2: any) {
+  const k1 = Object.keys(o1);
+  const k2 = Object.keys(o2);
+
+  if (k1.length !== k2.length) return false;
+  if (!k1.every(k => k2.includes(k))) return false;
+
+  // tslint:disable-next-line:forin
+  for (const k in k1) {
+    if (typeof o1[k] !== typeof o2[k]) return false;
+    if (typeof o1[k] === 'object' && !deepEqual(o1[k], o2[k])) return false;
+    if (o1[k] !== o2[k]) return false;
+  }
+
+  return true;
 }

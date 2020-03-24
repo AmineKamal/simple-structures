@@ -84,4 +84,7 @@ export const wrap = {
   any: <T>(obj: T) => new BaseWrapper(obj),
 };
 
-const arr = wrap.array([1, 2, 4]);
+export const awrap = wrap.array;
+export const owrap = wrap.object;
+export const rwrap = wrap.range;
+export const anywrap = wrap.any;

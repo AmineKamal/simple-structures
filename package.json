@@ -1,6 +1,6 @@
 {
   "name": "simple-structures",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Package that contains multiple structures and helpers.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -34,6 +34,7 @@
   "homepage": "https://github.com/AmineKamal/simple-structures#readme",
   "devDependencies": {
     "@types/jest": "^25.1.4",
+    "@types/node": "^13.9.2",
     "jest": "^25.1.0",
     "prettier": "^1.19.1",
     "ts-jest": "^25.2.1",
