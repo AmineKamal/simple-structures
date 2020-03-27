@@ -24,3 +24,7 @@ export function removeAll<T>(arr: T[], f: (o: T) => boolean) {
 export function swap<T>(arr: T[], i1: number, i2: number) {
   [arr[i1], arr[i2]] = [arr[i2], arr[i1]];
 }
+
+export function tuple<T extends any[]>(...data: T) {
+  return data;
+}
