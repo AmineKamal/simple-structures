@@ -1,13 +1,11 @@
-import * as Array from './lib/array';
-import * as Boolean from './lib/boolean';
-import { Clonable } from './lib/clonable';
-import * as Object from './lib/object';
-import { Observable } from './lib/observable';
-import * as Random from './lib/random';
-import * as Structures from './lib/structures';
-import * as Task from './lib/task';
-import * as Types from './lib/types';
-import * as Verifiers from './lib/verifiers';
-import * as Wrappers from './lib/wrappers';
-
-export { Types, Array, Verifiers, Task, Boolean, Object, Random, Observable, Wrappers, Clonable, Structures };
+export * from './lib/array';
+export * from './lib/boolean';
+export * from './lib/clonable';
+export * from './lib/object';
+export * from './lib/observable';
+export * from './lib/random';
+export * from './lib/structures';
+export * from './lib/task';
+export * from './lib/types';
+export * from './lib/verifiers';
+export * from './lib/wrappers';
