@@ -20,7 +20,7 @@ export function pick<K, T extends K>(K: new () => K, obj: T): K {
 }
 
 export function initStrict<K extends string, V>(a: readonly K[], i: V): StrictMap<K, V> {
-  return a.reduce((p: any, c) => ((p[c] = i), p), {}) as StrictMap<K, V>;
+  return a.reduce((p: any, c) => ((p[c] = clone(i)), p), {}) as StrictMap<K, V>;
 }
 
 export function deepEqual(o1: any, o2: any) {
