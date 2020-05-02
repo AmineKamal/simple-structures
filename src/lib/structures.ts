@@ -1,5 +1,7 @@
 // tslint:disable:max-classes-per-file
 
+import { Map } from './types';
+
 export class Queue<T> {
   private data: T[] = [];
 
@@ -65,4 +67,47 @@ export class Tree<T> {
 
 export function tree<T>(initial: T) {
   return new Tree(initial);
+}
+
+/* NOT READY YET */
+class FixedArray<T> extends Array<T> {
+  private size: number;
+
+  public constructor(size: number, data?: T[]) {
+    super();
+    this.size = size;
+    if (data) this.push(...data.splice(0, size));
+  }
+
+  public push(...items: T[]) {
+    if (this.length + items.length >= this.size) return -1;
+    return super.push(...items);
+  }
+}
+
+export class VolatileMap<T> {
+  private size: number;
+  private keys: string[] = [];
+  private map: Map<T> = {};
+
+  public constructor(size: number) {
+    this.size = size;
+  }
+
+  public set(key: string, value: T) {
+    if (!this.keys.includes(key)) {
+      this.keys.push(key);
+    }
+
+    this.map[key] = value;
+
+    if (this.keys.length > this.size) {
+      const k = this.keys.shift();
+      if (k) delete this.map[k];
+    }
+  }
+
+  public get(key: string) {
+    return this.map[key];
+  }
 }
