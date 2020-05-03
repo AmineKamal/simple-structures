@@ -39,3 +39,9 @@ export function deepEqual(o1: any, o2: any) {
 
   return true;
 }
+
+export function mapStrict<K extends string, V, O>(smap: StrictMap<K, V>, f: (o: V) => O): StrictMap<K, O> {
+  const keys = Object.keys(smap) as K[];
+
+  return keys.reduce((o, k) => ((o[k] = f(smap[k])), o), {} as StrictMap<K, O>);
+}

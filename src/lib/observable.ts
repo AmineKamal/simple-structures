@@ -27,6 +27,16 @@ export class Observable<T> {
     this.notify();
   }
 
+  public replace(arg: T) {
+    this.values.pop();
+    this.values.push(arg);
+    this.notify();
+  }
+
+  public get stream() {
+    return this.values;
+  }
+
   public unsubscribe(id: number) {
     const f = this.subscribers[id];
     if (f) f(clone(this.value));
