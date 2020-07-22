@@ -28,3 +28,58 @@ export function swap<T>(arr: T[], i1: number, i2: number) {
 export function tuple<T extends any[]>(...data: T) {
   return data;
 }
+
+async function getPivot<T>(x: T, y: T, z: T, compare: (a: T, b: T) => Promise<number>) {
+  if ((await compare(x, y)) < 0) {
+    if ((await compare(y, z)) < 0) {
+      return y;
+    } else if ((await compare(z, x)) < 0) {
+      return x;
+    } else {
+      return z;
+    }
+  } else if ((await compare(y, z)) > 0) {
+    return y;
+  } else if ((await compare(z, x)) > 0) {
+    return x;
+  } else {
+    return z;
+  }
+}
+
+export async function asyncSort<T>(
+  arr: T[],
+  compare: (a: T, b: T) => Promise<number>,
+  left = 0,
+  right = arr.length - 1,
+) {
+  if (left < right) {
+    let i = left;
+    let j = right;
+    let tmp: T;
+
+    const pivot = await getPivot(arr[i], arr[i + Math.floor((j - i) / 2)], arr[j], compare);
+
+    while (true) {
+      while ((await compare(arr[i], pivot)) < 0) {
+        i++;
+      }
+      while ((await compare(pivot, arr[j])) < 0) {
+        j--;
+      }
+      if (i >= j) {
+        break;
+      }
+      tmp = arr[i];
+      arr[i] = arr[j];
+      arr[j] = tmp;
+
+      i++;
+      j--;
+    }
+
+    await asyncSort(arr, compare, left, i - 1);
+    await asyncSort(arr, compare, j + 1, right);
+  }
+  return arr;
+}
