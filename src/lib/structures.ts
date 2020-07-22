@@ -115,31 +115,17 @@ export class VolatileMap<T> {
 export class BiKeyMap<T> {
   private map: Map<T> = {};
 
-  public constructor(private strict = false) {}
-
-  set(key: [string, string], value: T) {
+  set(key: [string, string], value: T, secondValue?: T) {
     const reversed = key
       .slice()
       .reverse()
       .join('');
 
-    if (!this.strict && this.map[reversed]) {
-      this.map[reversed] = value;
-    }
-
+    this.map[reversed] = secondValue ?? value;
     this.map[key.join('')] = value;
   }
 
   get(key: [string, string]) {
-    const reversed = key
-      .slice()
-      .reverse()
-      .join('');
-
-    if (!this.strict && this.map[reversed]) {
-      return this.map[reversed];
-    }
-
     return this.map[key.join('')];
   }
 }
