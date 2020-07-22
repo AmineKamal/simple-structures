@@ -118,16 +118,26 @@ export class BiKeyMap<T> {
   public constructor(private strict = false) {}
 
   set(key: [string, string], value: T) {
-    if (!this.strict && this.map[key.reverse().join('')]) {
-      this.map[key.reverse().join('')] = value;
+    const reversed = key
+      .slice()
+      .reverse()
+      .join('');
+
+    if (!this.strict && this.map[reversed]) {
+      this.map[reversed] = value;
     }
 
     this.map[key.join('')] = value;
   }
 
   get(key: [string, string]) {
-    if (!this.strict && this.map[key.reverse().join('')]) {
-      return this.map[key.reverse().join('')];
+    const reversed = key
+      .slice()
+      .reverse()
+      .join('');
+
+    if (!this.strict && this.map[reversed]) {
+      return this.map[reversed];
     }
 
     return this.map[key.join('')];
