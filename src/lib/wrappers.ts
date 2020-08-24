@@ -3,7 +3,7 @@
 import { Range } from './types';
 import { inRange } from './boolean';
 import { any, shuffle } from './random';
-import { clone } from './object';
+import { clone, forEachKey } from './object';
 import { swap, sortWith, findAllIndexes, removeAll, asyncSort } from './array';
 
 class BaseWrapper<T> {
@@ -30,6 +30,11 @@ class BaseWrapper<T> {
 export class ObjectWrapper<T> extends BaseWrapper<T> {
   public constructor(obj: T) {
     super(obj);
+  }
+
+  public forEach(f: (v: T[keyof T], k?: keyof T, o?: T) => void) {
+    forEachKey(this.obj, f);
+    return this;
   }
 }
 

@@ -45,3 +45,8 @@ export function mapStrict<K extends string, V, O>(smap: StrictMap<K, V>, f: (o: 
 
   return keys.reduce((o, k) => ((o[k] = f(smap[k])), o), {} as StrictMap<K, O>);
 }
+
+export function forEachKey<T>(o: T, f: (v: T[keyof T], k?: keyof T, o?: T) => void) {
+  const keys = Object.keys(o) as (keyof T)[];
+  keys.forEach(k => f(o[k], k, o));
+}

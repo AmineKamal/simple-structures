@@ -1,9 +1,22 @@
+import { Range } from './types';
+
+export function fromRange(range: Range) {
+  const a = [];
+  for (let i = range.lower; i <= range.upper; i++) a.push(i);
+
+  return a;
+}
+
 // TODO: Find a way to permit a undefined cmp function
 export function sortWith<T, U>(ta: T[], ua: U[], cmp: (a: U, b: U) => number) {
   const merged = ta.map((t, i) => ({ t, u: ua[i] }));
   merged.sort((a, b) => cmp(a.u, b.u));
 
   return merged.map(m => m.t);
+}
+
+export function sortWithkey<T, K extends keyof T>(arr: T[], key: K, cmp: (a: T[K], b: T[K]) => number) {
+  return arr.sort((a, b) => cmp(a[key], b[key]));
 }
 
 export function findAllIndexes<T>(arr: T[], f: (o: T) => boolean) {
@@ -83,3 +96,8 @@ export async function asyncSort<T>(
   }
   return arr;
 }
+
+export const desc = (a: number, b: number) => b - a;
+export const asc = (a: number, b: number) => a - b;
+export const adesc = async (a: number, b: number) => b - a;
+export const aasc = async (a: number, b: number) => a - b;
