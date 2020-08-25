@@ -76,7 +76,7 @@ export class ArrayWrapper<T> extends BaseWrapper<T[]> {
     return this;
   }
 
-  public uniquePush(e: T, f?: (a: T, b: T) => boolean) {
+  public uniquePush(e: T | T[], f?: (a: T, b: T) => boolean) {
     return uniquePush(this.obj, e, f);
   }
 }

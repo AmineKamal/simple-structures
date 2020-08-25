@@ -1,11 +1,17 @@
 import { Range } from './types';
 
-export function uniquePush<T>(a: T[], e: T, f?: (a: T, b: T) => boolean) {
-  if (f) {
-    if (a.find(v => f(e, v))) return a.length;
-  } else if (a.includes(e)) return a.length;
+export function uniquePush<T>(a: T[], elements: T[] | T, f?: (a: T, b: T) => boolean) {
+  const push = Array.isArray(elements) ? elements : [elements];
 
-  return a.push(e);
+  for (const e of push) {
+    if (f) {
+      if (a.find(v => f(e, v))) continue;
+    } else if (a.includes(e)) continue;
+
+    a.push(e);
+  }
+
+  return a.length;
 }
 
 export function fromRange(range: Range) {
