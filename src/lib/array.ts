@@ -1,5 +1,10 @@
 import { Range } from './types';
 
+export function uniquePush<T>(a: T[], e: T) {
+  if (a.includes(e)) return a.length;
+  return a.push(e);
+}
+
 export function fromRange(range: Range) {
   const a = [];
   for (let i = range.lower; i <= range.upper; i++) a.push(i);

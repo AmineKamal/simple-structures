@@ -4,7 +4,7 @@ import { Range } from './types';
 import { inRange } from './boolean';
 import { any, shuffle } from './random';
 import { clone, forEachKey } from './object';
-import { swap, sortWith, findAllIndexes, removeAll, asyncSort } from './array';
+import { swap, sortWith, findAllIndexes, removeAll, asyncSort, uniquePush } from './array';
 
 class BaseWrapper<T> {
   protected obj: T;
@@ -74,6 +74,10 @@ export class ArrayWrapper<T> extends BaseWrapper<T[]> {
   public async asyncSort(cmp: (a: T, b: T) => Promise<number>) {
     await asyncSort(this.obj, cmp);
     return this;
+  }
+
+  public uniquePush(e: T) {
+    return uniquePush(this.obj, e);
   }
 }
 
