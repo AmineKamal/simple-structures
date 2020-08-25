@@ -1,7 +1,10 @@
 import { Range } from './types';
 
-export function uniquePush<T>(a: T[], e: T) {
-  if (a.includes(e)) return a.length;
+export function uniquePush<T>(a: T[], e: T, f?: (a: T, b: T) => boolean) {
+  if (f) {
+    if (a.find(v => f(e, v))) return a.length;
+  } else if (a.includes(e)) return a.length;
+
   return a.push(e);
 }
 
